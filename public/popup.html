@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video Music Lyrics</title>
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>🎵 Video Music Lyrics</h1>
+    <p class="subtitle">Desktop Lyrics Display</p>
+  </header>
+
+  <main>
+    <div class="status-section">
+      <div class="status-indicator">
+        <div class="status-dot" id="statusDot"></div>
+        <span id="statusText">Checking...</span>
+      </div>
+    </div>
+
+    <div class="control-section">
+      <button id="toggleBtn" class="btn-primary" disabled>
+        <span id="toggleText">Start Lyrics Display</span>
+      </button>
+    </div>
+
+    <div class="info-section">
+      <div class="info-item">
+        <span class="info-label">Subtitle Status:</span>
+        <span id="subtitleStatus" class="info-value">--</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Window Status:</span>
+        <span id="windowStatus" class="info-value">--</span>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <h3>Settings</h3>
+      <div class="setting-item">
+        <label for="fontSize">Font Size</label>
+        <select id="fontSize">
+          <option value="18px">Small</option>
+          <option value="24px" selected>Medium</option>
+          <option value="32px">Large</option>
+          <option value="40px">Extra Large</option>
+        </select>
+      </div>
+
+      <div class="setting-item">
+        <label for="fontColor">Font Color</label>
+        <input type="color" id="fontColor" value="#ffffff">
+      </div>
+
+      <div class="setting-item">
+        <label for="bgOpacity">Background Opacity</label>
+        <input type="range" id="bgOpacity" min="0" max="100" value="70">
+        <span id="opacityValue">70%</span>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p class="help-text">
+      💡 Please enable CC subtitles on YouTube video pages
+    </p>
+    <p class="version">v1.0.0</p>
+  </footer>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
