@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         toggleBtn.classList.remove('active');
       }
 
-      toggleBtn.disabled = false;
+      toggleBtn.disabled = !extensionEnabled;
 
     } catch (error) {
       console.error('Error checking status:', error);

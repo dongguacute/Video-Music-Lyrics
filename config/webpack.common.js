@@ -7,8 +7,7 @@ module.exports = {
   entry: {
     popup: PATHS.src + '/popup/popup.js',
     content: PATHS.src + '/content/content.js',
-    background: PATHS.src + '/background/background.js',
-    lyrics: PATHS.src + '/lyrics/lyrics.js'
+    background: PATHS.src + '/background/background.js'
   },
   output: {
     path: PATHS.build,
@@ -41,10 +40,6 @@ module.exports = {
         },
         {
           from: PATHS.public + '/popup.html',
-          to: PATHS.build
-        },
-        {
-          from: PATHS.public + '/lyrics.html',
           to: PATHS.build
         },
         {

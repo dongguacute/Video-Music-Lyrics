@@ -10,11 +10,19 @@ body {
   background: transparent;
   -webkit-user-select: none;
   user-select: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  cursor: default;
 }
 
 .lyrics-container {
-  width: 100vw;
-  height: 100vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,6 +30,11 @@ body {
   background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  min-width: 400px;
+  max-width: 80vw;
+  cursor: move;
 }
 
 .lyrics-text {
@@ -63,8 +76,8 @@ body {
 }
 
 .controls {
-  position: fixed;
-  top: 10px;
+  position: absolute;
+  top: -40px;
   right: 10px;
   display: flex;
   gap: 8px;
@@ -73,7 +86,7 @@ body {
   z-index: 1000;
 }
 
-body:hover .controls {
+.lyrics-container:hover .controls {
   opacity: 1;
 }
 
@@ -203,6 +216,19 @@ body:hover .controls {
 /* Drag functionality */
 body.dragging {
   cursor: move;
+}
+
+.lyrics-container.dragging {
+  transition: none;
+  user-select: none;
+}
+
+.drag-handle {
+  cursor: grab;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
 }
 
 /* Responsive design */

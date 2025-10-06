@@ -9,15 +9,21 @@ let currentSettings = {
 };
 
 let isPinned = false;
+let isDragging = false;
+let dragStartX = 0;
+let dragStartY = 0;
+let lyricsStartX = 0;
+let lyricsStartY = 0;
 
 document.addEventListener('DOMContentLoaded', () => {
   const lyricsText = document.getElementById('lyricsText');
   const settingsBtn = document.getElementById('settingsBtn');
-  const pinBtn = document.getElementById('pinBtn');
+  const dragHandle = document.getElementById('dragHandle');
   const closeBtn = document.getElementById('closeBtn');
   const settingsPanel = document.getElementById('settingsPanel');
   const applySettingsBtn = document.getElementById('applySettings');
-  
+  const lyricsContainer = document.getElementById('lyricsContainer');
+
   const fontSizeSlider = document.getElementById('fontSizeSlider');
   const fontSizeValue = document.getElementById('fontSizeValue');
   const fontColorPicker = document.getElementById('fontColorPicker');
@@ -41,13 +47,11 @@ document.addEventListener('DOMContentLoaded', () => {
     settingsBtn.classList.toggle('active');
   });
 
-  pinBtn.addEventListener('click', () => {
-    isPinned = !isPinned;
-    pinBtn.classList.toggle('active');
-    // Note: Browser security restrictions prevent true pinning functionality
-    // This is just visual feedback
-  });
-  
+  // Drag functionality
+  dragHandle.addEventListener('mousedown', startDrag);
+  document.addEventListener('mousemove', drag);
+  document.addEventListener('mouseup', stopDrag);
+
   closeBtn.addEventListener('click', () => {
     window.close();
   });
@@ -171,6 +175,43 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('contextmenu', (e) => {
     e.preventDefault();
   });
-  
+
+  // Drag functions
+  function startDrag(e) {
+    isDragging = true;
+    dragStartX = e.clientX;
+    dragStartY = e.clientY;
+
+    const rect = lyricsContainer.getBoundingClientRect();
+    lyricsStartX = rect.left;
+    lyricsStartY = rect.top;
+
+    document.body.classList.add('dragging');
+    lyricsContainer.classList.add('dragging');
+    e.preventDefault();
+  }
+
+  function drag(e) {
+    if (!isDragging) return;
+
+    const deltaX = e.clientX - dragStartX;
+    const deltaY = e.clientY - dragStartY;
+
+    const newLeft = Math.max(0, Math.min(window.innerWidth - lyricsContainer.offsetWidth, lyricsStartX + deltaX));
+    const newTop = Math.max(0, Math.min(window.innerHeight - lyricsContainer.offsetHeight, lyricsStartY + deltaY));
+
+    lyricsContainer.style.left = newLeft + 'px';
+    lyricsContainer.style.top = newTop + 'px';
+    lyricsContainer.style.transform = 'none';
+  }
+
+  function stopDrag() {
+    if (!isDragging) return;
+
+    isDragging = false;
+    document.body.classList.remove('dragging');
+    lyricsContainer.classList.remove('dragging');
+  }
+
   console.log('Lyrics window initialized');
 });
